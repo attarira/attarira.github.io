@@ -61,7 +61,7 @@ export default function Hero() {
           >
             <a
               href="#projects"
-              className="inline-flex items-center rounded-lg bg-white/10 px-8 py-3.5 text-sm font-semibold text-white backdrop-blur-md border border-white/10 transition-all duration-300 hover:bg-white/15 hover:border-white/20 hover:-translate-y-0.5 shadow-lg shadow-black/20"
+              className="inline-flex items-center rounded-lg bg-foreground px-8 py-3.5 text-sm font-semibold text-background transition-all duration-300 hover:bg-foreground/90 hover:-translate-y-0.5 shadow-lg shadow-black/20"
             >
               View Projects
             </a>
@@ -69,52 +69,19 @@ export default function Hero() {
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center rounded-lg bg-transparent px-8 py-3.5 text-sm font-medium text-muted hover:text-foreground backdrop-blur-sm border border-transparent transition-all duration-300 hover:bg-white/5 hover:border-white/10"
+              className="inline-flex items-center rounded-lg bg-white/5 px-8 py-3.5 text-sm font-medium text-foreground backdrop-blur-md border border-white/10 transition-all duration-300 hover:bg-white/15 hover:border-white/20"
             >
               Download Resume
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center rounded-lg bg-transparent px-8 py-3.5 text-sm font-medium text-muted hover:text-foreground backdrop-blur-sm border border-transparent transition-all duration-300 hover:bg-white/5 hover:border-white/10"
+              className="inline-flex items-center rounded-lg bg-white/5 px-8 py-3.5 text-sm font-medium text-foreground backdrop-blur-md border border-white/10 transition-all duration-300 hover:bg-white/15 hover:border-white/20"
             >
               Contact
             </a>
           </motion.div>
 
-          {/* Social proof logos */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
-            className="mt-14 flex items-center gap-10"
-          >
-            <span className="text-[10px] font-medium tracking-[0.2em] text-muted-foreground/60 uppercase">
-              Previously at
-            </span>
-            <div className="flex items-center gap-8">
-              <Image
-                src="/columbia-logo.png"
-                alt="Columbia University"
-                width={28}
-                height={28}
-                className="opacity-40 grayscale contrast-200 transition-all duration-300 hover:opacity-100 hover:grayscale-0 hover:contrast-100"
-              />
-              <Image
-                src="/routerr-logo.png"
-                alt="Routerr Health"
-                width={72}
-                height={20}
-                className="h-5 w-auto opacity-40 grayscale contrast-200 brightness-150 transition-all duration-300 hover:opacity-100 hover:grayscale-0 hover:contrast-100 hover:brightness-100"
-              />
-              <Image
-                src="/perficient-logo.png"
-                alt="Perficient"
-                width={80}
-                height={20}
-                className="h-5 w-auto opacity-40 grayscale contrast-200 brightness-150 transition-all duration-300 hover:opacity-100 hover:grayscale-0 hover:contrast-100 hover:brightness-100"
-              />
-            </div>
-          </motion.div>
+
         </div>
 
         {/* ─── RIGHT: empty column so text stays left-aligned in grid ─── */}
