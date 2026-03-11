@@ -1,0 +1,370 @@
+
+> portfolio@0.1.0 lint
+> eslint
+
+
+/Users/attarira/Documents/projects/attarira.github.io/src/app/coming-soon/page.tsx
+  26:58  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+/Users/attarira/Documents/projects/attarira.github.io/src/app/projects/[projectId]/demo/page.tsx
+  1:10  warning  'notFound' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/AnimeGrid.tsx
+  135:8  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/AnimeGrid.tsx:135:8
+  133 |       style={{ cursor: "crosshair" }}
+  134 |     >
+> 135 |       {dots.current.map((d, i) => (
+      |        ^^^^^^^^^^^^ Cannot access ref value during render
+  136 |         <circle
+  137 |           key={i}
+  138 |           className="gd"      react-hooks/refs
+  135:8  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/AnimeGrid.tsx:135:8
+  133 |       style={{ cursor: "crosshair" }}
+  134 |     >
+> 135 |       {dots.current.map((d, i) => (
+      |        ^^^^^^^^^^^^^^^^ Cannot access ref value during render
+  136 |         <circle
+  137 |           key={i}
+  138 |           className="gd"  react-hooks/refs
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/Footer.tsx
+  9:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/Footer.tsx:9:5
+   7 |
+   8 |   useEffect(() => {
+>  9 |     setYear(new Date().getFullYear());
+     |     ^^^^^^^ Avoid calling setState() directly within an effect
+  10 |   }, []);
+  11 |
+  12 |   return (  react-hooks/set-state-in-effect
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/Hero.tsx
+  4:8  warning  'Image' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/NeuralStack.tsx
+  3:29  warning  'useCallback' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx
+   11:7   error  'x' is never reassigned. Use 'const' instead                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           prefer-const
+  116:17  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:116:17
+  114 |
+  115 |       // Radius distribution: heavy concentration in the 0.5–3.0 range
+> 116 |       const t = Math.random();
+      |                 ^^^^^^^^^^^^^ Cannot call impure function
+  117 |       const radius = VOID_RADIUS + (MAX_RADIUS - VOID_RADIUS) * Math.pow(t, 0.45);
+  118 |
+  119 |       // Tight spiral with arm-dependent winding                                                                                              react-hooks/purity
+  124:10  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:124:10
+  122 |         armAngle +
+  123 |         (radius / MAX_RADIUS) * Math.PI * 2 * spiralWinds +
+> 124 |         (Math.random() - 0.5) * (0.4 + radius * 0.15);
+      |          ^^^^^^^^^^^^^ Cannot call impure function
+  125 |
+  126 |       const x = Math.cos(angle) * radius;
+  127 |       const y = Math.sin(angle) * radius;                                                                                                                     react-hooks/purity
+  128:18  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:128:18
+  126 |       const x = Math.cos(angle) * radius;
+  127 |       const y = Math.sin(angle) * radius;
+> 128 |       const z = (Math.random() - 0.5) * DEPTH_RANGE * (0.3 + radius / MAX_RADIUS);
+      |                  ^^^^^^^^^^^^^ Cannot call impure function
+  129 |
+  130 |       positions[i * 3] = x;
+  131 |       positions[i * 3 + 1] = y;                                                                                                    react-hooks/purity
+  135:61  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:135:61
+  133 |
+  134 |       // Color: inner = bright teal, outer = purple/pink
+> 135 |       const colorT = Math.pow(radius / MAX_RADIUS, 0.65) + (Math.random() - 0.5) * 0.1;
+      |                                                             ^^^^^^^^^^^^^ Cannot call impure function
+  136 |       const col = sampleColor(colorT);
+  137 |       colors[i * 3] = col.r;
+  138 |       colors[i * 3 + 1] = col.g;                                      react-hooks/purity
+  143:42  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:143:42
+  141 |       // Inner particles slightly bigger and brighter for dense core
+  142 |       const nearCore = 1.0 - Math.min(radius / 2.0, 1.0);
+> 143 |       sizes[i] = (1.5 + nearCore * 3.0 + Math.random() * 1.5) * (radius < 0.8 ? 1.8 : 1.0);
+      |                                          ^^^^^^^^^^^^^ Cannot call impure function
+  144 |
+  145 |       // Speed: faster near center
+  146 |       const speed = 0.6 + Math.random() * 0.8;  react-hooks/purity
+  146:27  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:146:27
+  144 |
+  145 |       // Speed: faster near center
+> 146 |       const speed = 0.6 + Math.random() * 0.8;
+      |                           ^^^^^^^^^^^^^ Cannot call impure function
+  147 |       meta[i * 3] = angle;
+  148 |       meta[i * 3 + 1] = radius;
+  149 |       meta[i * 3 + 2] = speed;                                                                                                                                                  react-hooks/purity
+  226:7   error  Error: This value cannot be modified
+
+Modifying a value previously passed as an argument to a hook is not allowed. Consider moving the modification before calling the hook.
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:226:7
+  224 |       const angularSpeed = 0.12 * speed * (1.0 + 4.0 / (radius * radius + 0.3));
+  225 |       angle += angularSpeed * 0.016;
+> 226 |       meta[i * 3] = angle;
+      |       ^^^^ `meta_0` cannot be modified
+  227 |
+  228 |       // Gentle inward pull
+  229 |       radius -= 0.008 * 0.016 * (1.0 / (radius + 0.2));                                                                                                                                                                                                                                                                           react-hooks/immutability
+  271:5   error  Error: This value cannot be modified
+
+Modifying a value previously passed as an argument to a hook is not allowed. Consider moving the modification before calling the hook.
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:271:5
+  269 |     posAttr.needsUpdate = true;
+  270 |     colorAttr.needsUpdate = true;
+> 271 |     shaderMaterial.uniforms.uTime.value = time;
+      |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `shaderMaterial` cannot be modified
+  272 |
+  273 |     // Slow ambient rotation of entire vortex
+  274 |     pointsRef.current.rotation.z = time * 0.015;                                                                                                                                                                                                                                                                react-hooks/immutability
+  306:23  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:306:23
+  304 |
+  305 |     for (let i = 0; i < STREAMER_COUNT; i++) {
+> 306 |       const r = 0.5 + Math.random() * 5.0;
+      |                       ^^^^^^^^^^^^^ Cannot call impure function
+  307 |       const a = Math.random() * Math.PI * 2;
+  308 |       radii[i] = r;
+  309 |       angles[i] = a;                                                                                                                                                  react-hooks/purity
+  307:17  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:307:17
+  305 |     for (let i = 0; i < STREAMER_COUNT; i++) {
+  306 |       const r = 0.5 + Math.random() * 5.0;
+> 307 |       const a = Math.random() * Math.PI * 2;
+      |                 ^^^^^^^^^^^^^ Cannot call impure function
+  308 |       radii[i] = r;
+  309 |       angles[i] = a;
+  310 |       speeds[i] = 2.0 + Math.random() * 4.0;                                                                                                           react-hooks/purity
+  310:25  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:310:25
+  308 |       radii[i] = r;
+  309 |       angles[i] = a;
+> 310 |       speeds[i] = 2.0 + Math.random() * 4.0;
+      |                         ^^^^^^^^^^^^^ Cannot call impure function
+  311 |       sizes[i] = 3 + Math.random() * 5;
+  312 |
+  313 |       positions[i * 3] = Math.cos(a) * r;                                                                                                                                                        react-hooks/purity
+  311:22  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:311:22
+  309 |       angles[i] = a;
+  310 |       speeds[i] = 2.0 + Math.random() * 4.0;
+> 311 |       sizes[i] = 3 + Math.random() * 5;
+      |                      ^^^^^^^^^^^^^ Cannot call impure function
+  312 |
+  313 |       positions[i * 3] = Math.cos(a) * r;
+  314 |       positions[i * 3 + 1] = Math.sin(a) * r;                                                                                                                                 react-hooks/purity
+  315:31  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:315:31
+  313 |       positions[i * 3] = Math.cos(a) * r;
+  314 |       positions[i * 3 + 1] = Math.sin(a) * r;
+> 315 |       positions[i * 3 + 2] = (Math.random() - 0.5) * 1.5;
+      |                               ^^^^^^^^^^^^^ Cannot call impure function
+  316 |
+  317 |       const col = sampleColor(Math.random() * 0.6);
+  318 |       colors[i * 3] = col.r * 2.5;                                                                                 react-hooks/purity
+  317:31  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:317:31
+  315 |       positions[i * 3 + 2] = (Math.random() - 0.5) * 1.5;
+  316 |
+> 317 |       const col = sampleColor(Math.random() * 0.6);
+      |                               ^^^^^^^^^^^^^ Cannot call impure function
+  318 |       colors[i * 3] = col.r * 2.5;
+  319 |       colors[i * 3 + 1] = col.g * 2.5;
+  320 |       colors[i * 3 + 2] = col.b * 2.5;                                                                                           react-hooks/purity
+  368:7   error  Error: This value cannot be modified
+
+Modifying a value previously passed as an argument to a hook is not allowed. Consider moving the modification before calling the hook.
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:368:7
+  366 |     for (let i = 0; i < STREAMER_COUNT; i++) {
+  367 |       const angularSpeed = data.speeds[i] * (1.0 / (data.radii[i] + 0.3)) * 0.025;
+> 368 |       data.angles[i] += angularSpeed;
+      |       ^^^^^^^^^^^ `data` cannot be modified
+  369 |       posArray[i * 3] = Math.cos(data.angles[i]) * data.radii[i];
+  370 |       posArray[i * 3 + 1] = Math.sin(data.angles[i]) * data.radii[i];
+  371 |     }                                                                                                                                                                                     react-hooks/immutability
+  401:21  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:401:21
+  399 |
+  400 |     for (let i = 0; i < LINE_COUNT; i++) {
+> 401 |       const angle = Math.random() * Math.PI * 2;
+      |                     ^^^^^^^^^^^^^ Cannot call impure function
+  402 |       const innerR = 0.4 + Math.random() * 1.0;
+  403 |       const outerR = innerR + 1.0 + Math.random() * 3.0;
+  404 |       const speed = 0.3 + Math.random() * 0.5;                                                                                react-hooks/purity
+  402:28  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:402:28
+  400 |     for (let i = 0; i < LINE_COUNT; i++) {
+  401 |       const angle = Math.random() * Math.PI * 2;
+> 402 |       const innerR = 0.4 + Math.random() * 1.0;
+      |                            ^^^^^^^^^^^^^ Cannot call impure function
+  403 |       const outerR = innerR + 1.0 + Math.random() * 3.0;
+  404 |       const speed = 0.3 + Math.random() * 0.5;
+  405 |                                                                         react-hooks/purity
+  403:37  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:403:37
+  401 |       const angle = Math.random() * Math.PI * 2;
+  402 |       const innerR = 0.4 + Math.random() * 1.0;
+> 403 |       const outerR = innerR + 1.0 + Math.random() * 3.0;
+      |                                     ^^^^^^^^^^^^^ Cannot call impure function
+  404 |       const speed = 0.3 + Math.random() * 0.5;
+  405 |
+  406 |       // Inner vertex                                                                                     react-hooks/purity
+  404:27  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:404:27
+  402 |       const innerR = 0.4 + Math.random() * 1.0;
+  403 |       const outerR = innerR + 1.0 + Math.random() * 3.0;
+> 404 |       const speed = 0.3 + Math.random() * 0.5;
+      |                           ^^^^^^^^^^^^^ Cannot call impure function
+  405 |
+  406 |       // Inner vertex
+  407 |       positions[i * 6] = Math.cos(angle) * innerR;                                                                                             react-hooks/purity
+  409:31  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:409:31
+  407 |       positions[i * 6] = Math.cos(angle) * innerR;
+  408 |       positions[i * 6 + 1] = Math.sin(angle) * innerR;
+> 409 |       positions[i * 6 + 2] = (Math.random() - 0.5) * 0.5;
+      |                               ^^^^^^^^^^^^^ Cannot call impure function
+  410 |       // Outer vertex
+  411 |       positions[i * 6 + 3] = Math.cos(angle) * outerR;
+  412 |       positions[i * 6 + 4] = Math.sin(angle) * outerR;                  react-hooks/purity
+  413:31  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:413:31
+  411 |       positions[i * 6 + 3] = Math.cos(angle) * outerR;
+  412 |       positions[i * 6 + 4] = Math.sin(angle) * outerR;
+> 413 |       positions[i * 6 + 5] = (Math.random() - 0.5) * 0.5;
+      |                               ^^^^^^^^^^^^^ Cannot call impure function
+  414 |
+  415 |       const col = sampleColor(Math.random() * 0.5);
+  416 |       colors[i * 6] = col.r;                                                                 react-hooks/purity
+  415:31  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:415:31
+  413 |       positions[i * 6 + 5] = (Math.random() - 0.5) * 0.5;
+  414 |
+> 415 |       const col = sampleColor(Math.random() * 0.5);
+      |                               ^^^^^^^^^^^^^ Cannot call impure function
+  416 |       colors[i * 6] = col.r;
+  417 |       colors[i * 6 + 1] = col.g;
+  418 |       colors[i * 6 + 2] = col.b;                                                                                                             react-hooks/purity
+  439:7   error  Error: This value cannot be modified
+
+Modifying a value previously passed as an argument to a hook is not allowed. Consider moving the modification before calling the hook.
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:439:7
+  437 |     for (let i = 0; i < LINE_COUNT; i++) {
+  438 |       const speed = meta[i * 3 + 2];
+> 439 |       meta[i * 3] += speed * 0.008;
+      |       ^^^^ `meta_0` cannot be modified
+  440 |       const angle = meta[i * 3];
+  441 |       const innerR = meta[i * 3 + 1];
+  442 |       const outerR = innerR + 1.5 + Math.sin(time * 0.5 + i) * 0.5;                                                                                                                                                                                                                                                 react-hooks/immutability
+  476:5   error  Error: This value cannot be modified
+
+Modifying a value returned from a hook is not allowed. Consider moving the modification into the hook where the value is constructed.
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/VortexField.tsx:476:5
+  474 |
+  475 |   useFrame(() => {
+> 476 |     camera.position.x += (mouse.sx * 0.6 - camera.position.x) * 0.012;
+      |     ^^^^^^^^^^^^^^^ `camera` cannot be modified
+  477 |     camera.position.y += (mouse.sy * 0.4 - camera.position.y) * 0.012;
+  478 |     camera.lookAt(0, 0, 0);
+  479 |   });                                                                                                                                                                                                                                                                                                     react-hooks/immutability
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/demos/LifeOSDemo.tsx
+  173:11  error    Error: Cannot reassign variable after render completes
+
+Reassigning `currentOffset` after render has completed can cause inconsistent behavior on subsequent renders. Consider using state instead.
+
+/Users/attarira/Documents/projects/attarira.github.io/src/components/demos/LifeOSDemo.tsx:173:11
+  171 |           const dasharray = `${(segment.value / 100) * circumference} ${circumference}`;
+  172 |           const strokeDashoffset = -currentOffset;
+> 173 |           currentOffset += (segment.value / 100) * circumference;
+      |           ^^^^^^^^^^^^^ Cannot reassign `currentOffset` after render completes
+  174 |           return (
+  175 |             <circle
+  176 |               key={i}  react-hooks/immutability
+  330:51  warning  'i' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+
+✖ 34 problems (30 errors, 4 warnings)
+  1 error and 0 warnings potentially fixable with the `--fix` option.
+

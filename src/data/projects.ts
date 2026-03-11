@@ -25,7 +25,7 @@ export const projects: Project[] = [
       "Engineered an AI agent that converts natural language goals into executable workflows, dependencies, and automated notifications.",
     techStack: ["Python", "Claude", "React", "Vite"],
     githubUrl: "https://github.com/attarira/life-os",
-    demoUrl: "/coming-soon",
+    demoUrl: "/projects/lifeos/demo",
   },
   {
     id: "media-watcher",

@@ -1,9 +1,9 @@
 name: Monthly Blog Publish
 
 on:
-  schedule:
-    # Run at 00:00 on the 5th day of every month
-    - cron: '0 0 5 * *'
+  # schedule:
+  #   # Run at 00:00 on the 5th day of every month
+  #   - cron: '0 0 5 * *'
   # Allow manual trigger for testing
   workflow_dispatch:
 

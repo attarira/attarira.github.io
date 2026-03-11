@@ -11,10 +11,13 @@ export function generateStaticParams() {
     }));
 }
 
+import LifeOSDemo from "@/components/demos/LifeOSDemo";
+
 // Map project IDs to their specific demo components
 const demoRegistry: Record<string, React.ReactNode> = {
   // Add future demos here when created, e.g. "media-watcher": <MediaWatcherDemo />
-  "template": <TemplateDemo />
+  "template": <TemplateDemo />,
+  "lifeos": <LifeOSDemo />
 };
 
 export default async function ProjectDemoPage({
