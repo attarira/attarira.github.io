@@ -10,6 +10,7 @@ type Company = {
   id: string;
   name: string;
   ticker: string;
+  logoUrl?: string;
   logoColor: string;
   initials: string;
 };
@@ -31,6 +32,7 @@ type NewsArticle = {
   title: string;
   date: string;
   source: string;
+  sourceLogoUrl?: string;
   sourceInitials: string;
   summary: string;
   badges: {
@@ -42,7 +44,7 @@ type NewsArticle = {
   };
 };
 
-type MockVerisightData = {
+type MockMediaWatcherData = {
   company: Company;
   overallRiskScore: number;
   sentimentScore: number; // out of 10
@@ -58,9 +60,9 @@ type MockVerisightData = {
 };
 
 // --- Initial Data ---
-function getInitialData(): MockVerisightData {
+function getInitialData(): MockMediaWatcherData {
   return {
-    company: { id: "tesla", name: "Tesla Inc.", ticker: "TSLA", logoColor: "bg-red-500", initials: "T" },
+    company: { id: "tesla", name: "Tesla Inc.", ticker: "TSLA", logoUrl: "https://icons.duckduckgo.com/ip3/tesla.com.ico", logoColor: "bg-red-500", initials: "T" },
     overallRiskScore: 72,
     sentimentScore: 3.5,
     impactLevel: "Severe",
@@ -70,11 +72,9 @@ function getInitialData(): MockVerisightData {
       eventTypes: "Regulatory Inquiry, Product Recall",
     },
     companiesList: [
-      { id: "tesla", name: "Tesla Inc.", ticker: "TSLA", logoColor: "bg-red-500", initials: "T" },
-      { id: "jpm", name: "JPMorgan Chase", ticker: "JPM", logoColor: "bg-blue-600", initials: "J" },
-      { id: "msft", name: "Microsoft Corp.", ticker: "MSFT", logoColor: "bg-blue-400", initials: "M" },
-      { id: "googl", name: "Alphabet Inc. (Google)", ticker: "GOOGL", logoColor: "bg-orange-500", initials: "G" },
-      { id: "amzn", name: "Amazon.com Inc.", ticker: "AMZN", logoColor: "bg-yellow-500", initials: "A" },
+      { id: "tesla", name: "Tesla Inc.", ticker: "TSLA", logoUrl: "https://icons.duckduckgo.com/ip3/tesla.com.ico", logoColor: "bg-red-500", initials: "T" },
+      { id: "msft", name: "Microsoft Corp.", ticker: "MSFT", logoUrl: "https://icons.duckduckgo.com/ip3/microsoft.com.ico", logoColor: "bg-blue-400", initials: "M" },
+      { id: "googl", name: "Google", ticker: "GOOGL", logoUrl: "https://icons.duckduckgo.com/ip3/google.com.ico", logoColor: "bg-orange-500", initials: "G" },
     ],
     newsFeed: [
       {
@@ -82,6 +82,7 @@ function getInitialData(): MockVerisightData {
         title: "Tesla Faces New SEC Probe Over Autopilot Claims",
         date: "Oct 26, 2023, 10:15 AM",
         source: "Bloomberg",
+        sourceLogoUrl: "https://icons.duckduckgo.com/ip3/bloomberg.com.ico",
         sourceInitials: "B",
         summary:
           "The SEC has launched an investigation into Tesla's Autopilot system, focusing on misleading statements regarding its full self-driving capabilities. This could lead to significant regulatory penalties and reputational damage.",
@@ -98,6 +99,7 @@ function getInitialData(): MockVerisightData {
         title: "NHTSA Expands Probe into Tesla Suspension Issues",
         date: "Oct 25, 2023, 2:30 PM",
         source: "Reuters",
+        sourceLogoUrl: "https://icons.duckduckgo.com/ip3/reuters.com.ico",
         sourceInitials: "R",
         summary:
           "Safety regulators have expanded their review of potential suspension failures in Tesla Model S and Model X vehicles following numerous owner complaints.",
@@ -195,18 +197,18 @@ const SemiCircleGauge = ({ value, max, label, type = "risk" }: { value: number, 
 };
 
 export default function MediaWatcherDemo() {
-  const [dashData, setDashData] = useState<MockVerisightData | null>(null);
+  const [dashData, setDashData] = useState<MockMediaWatcherData | null>(null);
 
   const fetchDemoData = useCallback(async () => {
-    return getMockData<MockVerisightData>({
-      id: "verisight",
+    return getMockData<MockMediaWatcherData>({
+      id: "media-watcher",
       mockResponse: getInitialData(),
       delayMs: 800,
     });
   }, []);
 
   return (
-    <DemoShell title="Verisight" fetchData={fetchDemoData}>
+    <DemoShell title="Media Watcher" fetchData={fetchDemoData}>
       {(data) => {
         if (!dashData && data) setDashData(data);
         if (!dashData) return null;
@@ -216,7 +218,7 @@ export default function MediaWatcherDemo() {
             {/* Top Navigation */}
             <div className="bg-[#0f172a] text-white flex items-center justify-between px-6 py-3 shrink-0">
               <div className="flex items-center gap-2">
-                <span className="text-blue-400 font-bold text-xl tracking-tight">Veri<span className="text-white">sight</span></span>
+                <span className="text-blue-400 font-bold text-xl tracking-tight">Media <span className="text-white">Watcher</span></span>
               </div>
               
               <div className="flex items-center gap-1 text-sm font-medium">
@@ -267,9 +269,25 @@ export default function MediaWatcherDemo() {
                   <h4 className="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">Recent Companies</h4>
                   <div className="space-y-1">
                     {dashData.companiesList.map(comp => (
-                      <div key={comp.id} className={`flex items-center gap-3 p-2 rounded-lg cursor-pointer transition-colors ${comp.id === 'tesla' ? 'bg-slate-100 font-medium' : 'hover:bg-slate-50'}`}>
-                        <div className={`w-6 h-6 rounded-full ${comp.logoColor} text-white flex items-center justify-center font-bold text-[10px]`}>{comp.initials}</div>
-                        <span className={`text-sm ${comp.id === 'tesla' ? 'text-slate-900' : 'text-slate-700'}`}>{comp.name}</span>
+                      <div key={comp.id} 
+                           onClick={() => setDashData({ 
+                              ...dashData, 
+                              company: comp,
+                              overallRiskScore: Math.floor(Math.random() * 40) + 40,
+                              sentimentScore: Number((Math.random() * 3 + 4).toFixed(1)),
+                              impactLevel: Math.random() > 0.6 ? "Severe" : "Moderate"
+                           })}
+                           className={`flex items-center gap-3 p-2 rounded-lg cursor-pointer transition-colors ${comp.id === dashData.company.id ? 'bg-slate-100/50 ring-1 ring-slate-200' : 'hover:bg-slate-50'}`}>
+                        {comp.logoUrl ? (
+                          <div className={`w-7 h-7 rounded bg-white flex items-center justify-center p-1 overflow-hidden shrink-0 border ${comp.id === dashData.company.id ? 'border-slate-300 shadow-sm' : 'border-slate-200 shadow-sm'}`}>
+                            <img src={comp.logoUrl} alt={comp.name} className="w-full h-full object-contain" />
+                          </div>
+                        ) : (
+                          <div className={`w-7 h-7 rounded-full flex items-center justify-center font-bold text-[11px] shrink-0 text-white ${comp.logoColor}`}>
+                            {comp.initials}
+                          </div>
+                        )}
+                        <span className={`text-[13px] ${comp.id === dashData.company.id ? 'text-slate-900 font-semibold' : 'text-slate-600 font-medium'}`}>{comp.name}</span>
                       </div>
                     ))}
                   </div>
@@ -313,9 +331,15 @@ export default function MediaWatcherDemo() {
                 <h2 className="text-lg font-bold text-slate-800 mb-3 tracking-tight">Company Analysis Panel</h2>
                 <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm mb-6">
                   <div className="flex items-center gap-3 mb-6">
-                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                      <svg fill="currentColor" viewBox="0 0 24 24" className="w-5 h-5"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
-                    </div>
+                    {dashData.company.logoUrl ? (
+                      <div className="w-9 h-9 rounded bg-white border border-slate-200 flex items-center justify-center p-1.5 shadow-sm overflow-hidden shrink-0">
+                        <img src={dashData.company.logoUrl} alt={dashData.company.name} className="w-full h-full object-contain" />
+                      </div>
+                    ) : (
+                      <div className="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shrink-0">
+                        <svg fill="currentColor" viewBox="0 0 24 24" className="w-5 h-5"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+                      </div>
+                    )}
                     <span className="text-xl font-bold text-slate-900">{dashData.company.name} ({dashData.company.ticker})</span>
                   </div>
 
@@ -337,13 +361,27 @@ export default function MediaWatcherDemo() {
                     </div>
                     
                     <div className="flex flex-col items-center justify-center p-4 bg-slate-50 rounded-xl border border-slate-100 relative min-h-[160px]">
-                      <div className="flex items-center gap-1.5 text-sm font-semibold text-slate-700 w-full justify-center absolute top-4">
+                      <div className="flex items-center gap-1.5 text-sm font-semibold text-slate-500 w-full justify-center absolute top-4">
                         Impact Level
                       </div>
-                      <div className="bg-red-50 text-red-700 px-6 py-2.5 rounded-full font-bold flex items-center gap-2 shadow-sm border border-red-200 mt-6 relative overflow-hidden group">
-                         <div className="absolute inset-0 bg-red-100 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                         <svg className="w-5 h-5 relative z-10" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clipRule="evenodd" /></svg>
-                         <span className="relative z-10 tracking-widest uppercase text-sm">{dashData.impactLevel}</span>
+                      <div className="flex flex-col items-center mt-6 gap-2 w-full">
+                        <div className="relative">
+                          {dashData.impactLevel === "Severe" && (
+                            <div className="absolute -inset-1 rounded-full bg-red-400/20 blur-sm animate-pulse" />
+                          )}
+                          <div className={`bg-red-50/80 backdrop-blur-sm text-red-600 px-6 py-2 rounded-full font-bold flex items-center gap-2 border border-red-500/30 relative shadow-sm ring-1 ring-inset ring-white/50`}>
+                            {dashData.impactLevel === "Severe" && (
+                              <span className="relative flex h-2.5 w-2.5 mr-1">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+                              </span>
+                            )}
+                            <span className="tracking-[0.15em] uppercase text-sm font-bold text-red-600 drop-shadow-sm">{dashData.impactLevel}</span>
+                          </div>
+                        </div>
+                        {dashData.impactLevel === "Severe" && (
+                          <span className="text-[10px] text-red-500/80 font-bold tracking-widest uppercase mt-0.5 animate-pulse">Critical Event</span>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -370,10 +408,16 @@ export default function MediaWatcherDemo() {
                       <div className="text-xs text-slate-500 font-medium mb-3">{news.date}</div>
                       
                       <div className="flex items-center gap-2 mb-3">
-                        <div className="w-6 h-6 rounded-full bg-indigo-700 text-white flex items-center justify-center text-[10px] font-bold">
-                          {news.sourceInitials}
-                        </div>
-                        <span className="text-sm font-semibold text-indigo-900">{news.source}</span>
+                        {news.sourceLogoUrl ? (
+                          <div className="w-6 h-6 rounded bg-slate-50 flex items-center justify-center border border-slate-200 p-0.5 shadow-[0_1px_2px_rgba(0,0,0,0.05)] overflow-hidden shrink-0">
+                            <img src={news.sourceLogoUrl} alt={news.source} className="w-full h-full object-contain" />
+                          </div>
+                        ) : (
+                          <div className="w-6 h-6 rounded-full bg-indigo-700 text-white flex items-center justify-center text-[10px] font-bold shrink-0">
+                            {news.sourceInitials}
+                          </div>
+                        )}
+                        <span className="text-sm font-bold text-slate-800">{news.source}</span>
                       </div>
                       
                       <div className="bg-slate-50 p-3 rounded-lg border border-slate-100 mb-4">
@@ -437,20 +481,22 @@ export default function MediaWatcherDemo() {
                   </div>
 
                   <div className="mb-5">
-                    <h4 className="text-xs font-bold text-slate-500 mb-4 uppercase tracking-wider">Timeline of Events</h4>
-                    <div className="relative pt-2 pb-2 px-2">
-                       {/* Timeline Line */}
-                       <div className="absolute top-4 left-6 right-6 h-0.5 bg-slate-200 z-0"></div>
+                    <h4 className="text-[11px] font-bold text-slate-400 mb-4 uppercase tracking-[0.15em]">Timeline of Events</h4>
+                    <div className="relative pl-3 space-y-5 py-2">
+                       {/* Vertical line connecting timeline events */}
+                       <div className="absolute top-3 bottom-4 left-[17px] w-px bg-slate-200 z-0"></div>
                        
-                       <div className="flex justify-between relative z-10 w-full">
-                         {dashData.insights.timeline.map((item, i) => (
-                           <div key={i} className="flex flex-col items-center">
-                             <div className={`w-3.5 h-3.5 rounded-full ${item.color} border-2 border-white ring-2 ring-transparent mb-2`}></div>
-                             <span className="text-[10px] font-bold text-slate-700 text-center whitespace-nowrap">{item.date}</span>
-                             <span className="text-[9px] text-slate-500 text-center uppercase truncate max-w-[60px]">{item.title}</span>
+                       {dashData.insights.timeline.map((item, i) => (
+                         <div key={i} className="flex relative z-10 gap-4 group items-start">
+                           <div className="flex-shrink-0 mt-0.5 relative z-10">
+                             <div className={`w-2.5 h-2.5 rounded-full ${item.color === 'bg-red-500' ? 'bg-red-500 shadow-[0_0_0_3px_rgba(239,68,68,0.15)] ring-1 ring-red-500/30' : 'bg-slate-300 ring-4 ring-white'}`}></div>
                            </div>
-                         ))}
-                       </div>
+                           <div className="flex flex-col -mt-1">
+                             <span className={`text-[12px] font-semibold tracking-tight ${item.color === 'bg-red-500' ? 'text-red-600' : 'text-slate-800'}`}>{item.date}</span>
+                             <span className="text-[11px] font-medium text-slate-500 mt-0.5">{item.title}</span>
+                           </div>
+                         </div>
+                       ))}
                     </div>
                   </div>
 
@@ -484,8 +530,8 @@ export default function MediaWatcherDemo() {
                   {/* Fake Report Preview Document */}
                   <div className="aspect-[1/1.414] w-[140px] bg-white border border-slate-200 rounded shadow-sm mx-auto p-3 flex flex-col gap-2 relative overflow-hidden transform rotate-2">
                      <div className="w-full flex items-center justify-between pb-1 border-b border-slate-100">
-                       <span className="text-[6px] font-bold text-blue-600">Verisight</span>
-                       <span className="text-[5px] text-slate-400">Risk Report: Tesla Inc.</span>
+                       <span className="text-[6px] font-bold text-blue-600">Media Watcher</span>
+                       <span className="text-[5px] text-slate-400">Risk Report: {dashData.company.name}</span>
                      </div>
                      <div className="w-full h-1.5 bg-slate-200 rounded-sm w-3/4"></div>
                      <div className="flex gap-1.5 mb-1">
