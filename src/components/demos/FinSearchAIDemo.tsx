@@ -752,21 +752,18 @@ function advanceDocument(document: DemoDocument): DemoDocument {
 }
 
 function FinSearchWorkspace({ data }: { data: MockFinSearchData }) {
-  const initialMessage = data.messages.find((message) => message.id === data.activeMessageId);
   const [documents, setDocuments] = useState<DemoDocument[]>([]);
-  const [messages, setMessages] = useState<ChatMessage[]>(data.messages);
-  const [analysis, setAnalysis] = useState<AnalysisContext | null>(
-    initialMessage?.analysis ?? buildDocumentAnalysis(data.documents[0])
-  );
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [analysis, setAnalysis] = useState<AnalysisContext | null>(null);
   const [activeTab, setActiveTab] = useState<DemoTab>(data.activeTab);
-  const [activeMessageId, setActiveMessageId] = useState(data.activeMessageId);
+  const [activeMessageId, setActiveMessageId] = useState("");
   const [selectedDocumentId, setSelectedDocumentId] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [reviewState, setReviewState] = useState<ReviewState>("idle");
   const [reviewFeed, setReviewFeed] = useState<string[]>([
-    "Regulatory packet staged for review.",
-    "Click Review Packet to load filings, reports, and live indexing states.",
+    "Regulatory packet ready for review.",
+    "Click Review Packet to load filings, reports, and indexing updates.",
   ]);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const messageCounterRef = useRef(10);
@@ -806,7 +803,7 @@ function FinSearchWorkspace({ data }: { data: MockFinSearchData }) {
     setSelectedDocumentId("");
     setReviewState("loading");
     setReviewFeed([
-      "Initializing preloaded regulatory packet...",
+      "Initializing regulatory packet...",
       "Loading source files into the workspace...",
     ]);
 
@@ -1002,10 +999,10 @@ function FinSearchWorkspace({ data }: { data: MockFinSearchData }) {
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-white text-slate-500 shadow-[0_14px_30px_rgba(148,163,184,0.16)]">
                   <UploadGlyph />
                 </div>
-                <p className="text-[1.08rem] font-semibold text-slate-900">Preloaded Regulatory Review Packet</p>
+                <p className="text-[1.08rem] font-semibold text-slate-900">Regulatory Review Packet</p>
                 <p className="mt-1 text-sm leading-6 text-slate-600">
-                  Drag new PDFs here or start with the staged packet below. The review flow will populate the library
-                  and simulate preprocessing, indexing, and retrieval readiness.
+                  Drag new PDFs here or start with the packet below. The review flow will populate the library
+                  and process each source through preprocessing, indexing, and retrieval readiness.
                 </p>
 
                 <div className="mt-4 flex flex-wrap justify-center gap-2">
@@ -1029,9 +1026,9 @@ function FinSearchWorkspace({ data }: { data: MockFinSearchData }) {
                   </button>
                   <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
                     {reviewState === "idle"
-                      ? "4 documents staged for review"
+                      ? "4 documents ready for review"
                       : reviewState === "loading"
-                        ? "Mocked live ingestion is running"
+                        ? "Live ingestion is running"
                         : "All sources are analysis-ready"}
                   </p>
                 </div>
@@ -1110,7 +1107,7 @@ function FinSearchWorkspace({ data }: { data: MockFinSearchData }) {
                         <div>
                           <div className="text-[1.02rem] font-semibold text-slate-900">Click Review Packet to populate the library</div>
                           <p className="mt-1 text-sm leading-6 text-slate-600">
-                            FinSearchAI will mock document ingestion, status updates, and indexing progress before the
+                            FinSearchAI will run document ingestion, status updates, and indexing progress before the
                             sources become selectable.
                           </p>
                         </div>
@@ -1194,61 +1191,73 @@ function FinSearchWorkspace({ data }: { data: MockFinSearchData }) {
 
             <div className="flex min-h-[720px] flex-col bg-[linear-gradient(180deg,rgba(249,251,255,0.75),rgba(244,247,252,0.9))]">
               <div className="flex-1 space-y-5 overflow-y-auto px-5 py-5">
-                {messages.map((message) => {
-                  const isAssistant = message.role === "assistant";
-                  const isActive = isAssistant && activeMessageId === message.id;
+                {messages.length === 0 ? (
+                  <div className="rounded-[22px] border border-dashed border-slate-200 bg-white/70 px-5 py-6 text-center shadow-sm">
+                    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-sky-50 text-sky-600">
+                      <SparkGlyph className="h-5 w-5" />
+                    </div>
+                    <p className="mt-4 text-[1.02rem] font-semibold text-slate-900">Analysis assistant is standing by</p>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">
+                      Run the review packet to load source material, then ask a question to generate cited analysis.
+                    </p>
+                  </div>
+                ) : (
+                  messages.map((message) => {
+                    const isAssistant = message.role === "assistant";
+                    const isActive = isAssistant && activeMessageId === message.id;
 
-                  return (
-                    <motion.div
-                      key={message.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className={`flex ${isAssistant ? "justify-start" : "justify-end"}`}
-                    >
-                      <div className={`max-w-[86%] ${isAssistant ? "w-full" : ""}`}>
-                        {!isAssistant ? (
-                          <button
-                            onClick={() => setInputValue(message.text)}
-                            className="ml-auto block rounded-[18px] bg-[linear-gradient(135deg,#4f93e6,#2f6fdd)] px-5 py-4 text-left text-[1.02rem] font-medium text-white shadow-[0_20px_45px_rgba(59,130,246,0.28)] transition-transform hover:-translate-y-0.5"
-                          >
-                            {message.text}
-                          </button>
-                        ) : (
-                          <button
-                            onClick={() => handleActivateMessage(message)}
-                            className={`flex w-full gap-3 rounded-[22px] border px-4 py-4 text-left transition-all ${
-                              isActive
-                                ? "border-sky-200 bg-white shadow-[0_18px_40px_rgba(125,151,182,0.18)] ring-2 ring-sky-100"
-                                : "border-slate-200 bg-white/85 shadow-[0_14px_32px_rgba(148,163,184,0.1)] hover:border-slate-300"
-                            }`}
-                          >
-                            <div className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sky-50 text-sky-600">
-                              <SparkGlyph />
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <p className="text-[1.02rem] leading-8 text-slate-800">{message.text}</p>
+                    return (
+                      <motion.div
+                        key={message.id}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className={`flex ${isAssistant ? "justify-start" : "justify-end"}`}
+                      >
+                        <div className={`max-w-[86%] ${isAssistant ? "w-full" : ""}`}>
+                          {!isAssistant ? (
+                            <button
+                              onClick={() => setInputValue(message.text)}
+                              className="ml-auto block rounded-[18px] bg-[linear-gradient(135deg,#4f93e6,#2f6fdd)] px-5 py-4 text-left text-[1.02rem] font-medium text-white shadow-[0_20px_45px_rgba(59,130,246,0.28)] transition-transform hover:-translate-y-0.5"
+                            >
+                              {message.text}
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => handleActivateMessage(message)}
+                              className={`flex w-full gap-3 rounded-[22px] border px-4 py-4 text-left transition-all ${
+                                isActive
+                                  ? "border-sky-200 bg-white shadow-[0_18px_40px_rgba(125,151,182,0.18)] ring-2 ring-sky-100"
+                                  : "border-slate-200 bg-white/85 shadow-[0_14px_32px_rgba(148,163,184,0.1)] hover:border-slate-300"
+                              }`}
+                            >
+                              <div className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sky-50 text-sky-600">
+                                <SparkGlyph />
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <p className="text-[1.02rem] leading-8 text-slate-800">{message.text}</p>
 
-                              {message.bullets && (
-                                <ol className="mt-3 space-y-3 text-[1.01rem] leading-7 text-slate-800">
-                                  {message.bullets.map((bullet, index) => (
-                                    <li key={`${message.id}-${index}`} className="flex gap-3">
-                                      <span className="pt-0.5 font-semibold text-slate-500">{index + 1}.</span>
-                                      <div>
-                                        <span className="font-semibold text-slate-900">{bullet.title}</span>{" "}
-                                        <span className="text-slate-700">{bullet.detail}</span>{" "}
-                                        <span className="font-medium text-sky-700">{bullet.citation}</span>
-                                      </div>
-                                    </li>
-                                  ))}
-                                </ol>
-                              )}
-                            </div>
-                          </button>
-                        )}
-                      </div>
-                    </motion.div>
-                  );
-                })}
+                                {message.bullets && (
+                                  <ol className="mt-3 space-y-3 text-[1.01rem] leading-7 text-slate-800">
+                                    {message.bullets.map((bullet, index) => (
+                                      <li key={`${message.id}-${index}`} className="flex gap-3">
+                                        <span className="pt-0.5 font-semibold text-slate-500">{index + 1}.</span>
+                                        <div>
+                                          <span className="font-semibold text-slate-900">{bullet.title}</span>{" "}
+                                          <span className="text-slate-700">{bullet.detail}</span>{" "}
+                                          <span className="font-medium text-sky-700">{bullet.citation}</span>
+                                        </div>
+                                      </li>
+                                    ))}
+                                  </ol>
+                                )}
+                              </div>
+                            </button>
+                          )}
+                        </div>
+                      </motion.div>
+                    );
+                  })
+                )}
 
                 <div className="flex flex-wrap gap-2">
                   {DEFAULT_PROMPTS.map((prompt) => (
@@ -1300,60 +1309,74 @@ function FinSearchWorkspace({ data }: { data: MockFinSearchData }) {
             </div>
 
             <div className="space-y-6 p-5">
-              <div>
-                <h3 className="mb-3 text-lg font-semibold tracking-tight text-slate-900">Retrieved Document Excerpts</h3>
-                <div className="space-y-3">
-                  {analysis?.excerptCards.map((card) => (
-                    <div key={`${card.docId}-${card.page}`} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-                      <div className="text-[1.02rem] font-semibold text-slate-900">{card.title}</div>
-                      <div className="mt-1 text-sm text-slate-500">{card.page}</div>
-                      <p className="mt-3 text-[0.98rem] leading-7 text-slate-700">{card.excerpt}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <h3 className="mb-3 text-lg font-semibold tracking-tight text-slate-900">Source Citations</h3>
-                <div className="space-y-3">
-                  {analysis?.citations.map((citation, index) => {
-                    const sourceDocument = documents.find((document) => document.id === citation.docId);
-
-                    return (
-                      <div
-                        key={`${citation.docId}-${citation.page}-${index}`}
-                        className="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-3 py-3 text-sm shadow-sm"
-                      >
-                        <div className="flex min-w-0 items-center gap-3">
-                          <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${sourceDocument?.accentClass ?? "bg-slate-100 text-slate-500"}`}>
-                            <DocumentGlyph className="h-4 w-4" />
-                          </div>
-                          <div className="min-w-0">
-                            <div className="truncate font-medium text-slate-800">{citation.label}</div>
-                            <div className="text-slate-500">{sourceDocument?.category ?? "Regulatory Source"}</div>
-                          </div>
+              {analysis ? (
+                <>
+                  <div>
+                    <h3 className="mb-3 text-lg font-semibold tracking-tight text-slate-900">Retrieved Document Excerpts</h3>
+                    <div className="space-y-3">
+                      {analysis.excerptCards.map((card) => (
+                        <div key={`${card.docId}-${card.page}`} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                          <div className="text-[1.02rem] font-semibold text-slate-900">{card.title}</div>
+                          <div className="mt-1 text-sm text-slate-500">{card.page}</div>
+                          <p className="mt-3 text-[0.98rem] leading-7 text-slate-700">{card.excerpt}</p>
                         </div>
-                        <span className="shrink-0 text-sm font-medium text-slate-500">{citation.page}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
+                      ))}
+                    </div>
+                  </div>
 
-              <div className="rounded-2xl border border-slate-200 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(246,249,252,0.92))] p-4 shadow-sm">
-                <div className="mb-3 flex items-center justify-between">
-                  <h3 className="text-lg font-semibold tracking-tight text-slate-900">Model Reasoning Steps</h3>
-                  <ChevronDownGlyph className="h-4 w-4 text-slate-400" />
+                  <div>
+                    <h3 className="mb-3 text-lg font-semibold tracking-tight text-slate-900">Source Citations</h3>
+                    <div className="space-y-3">
+                      {analysis.citations.map((citation, index) => {
+                        const sourceDocument = documents.find((document) => document.id === citation.docId);
+
+                        return (
+                          <div
+                            key={`${citation.docId}-${citation.page}-${index}`}
+                            className="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-3 py-3 text-sm shadow-sm"
+                          >
+                            <div className="flex min-w-0 items-center gap-3">
+                              <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${sourceDocument?.accentClass ?? "bg-slate-100 text-slate-500"}`}>
+                                <DocumentGlyph className="h-4 w-4" />
+                              </div>
+                              <div className="min-w-0">
+                                <div className="truncate font-medium text-slate-800">{citation.label}</div>
+                                <div className="text-slate-500">{sourceDocument?.category ?? "Regulatory Source"}</div>
+                              </div>
+                            </div>
+                            <span className="shrink-0 text-sm font-medium text-slate-500">{citation.page}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border border-slate-200 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(246,249,252,0.92))] p-4 shadow-sm">
+                    <div className="mb-3 flex items-center justify-between">
+                      <h3 className="text-lg font-semibold tracking-tight text-slate-900">Model Reasoning Steps</h3>
+                      <ChevronDownGlyph className="h-4 w-4 text-slate-400" />
+                    </div>
+                    <ol className="space-y-2 text-[0.98rem] leading-7 text-slate-700">
+                      {analysis.reasoningSteps.map((step, index) => (
+                        <li key={`${step}-${index}`} className="flex gap-3">
+                          <span className="font-semibold text-slate-500">{index + 1}.</span>
+                          <span>{step}</span>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                </>
+              ) : (
+                <div className="rounded-2xl border border-dashed border-slate-200 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(246,249,252,0.92))] p-5 text-center shadow-sm">
+                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 text-slate-500">
+                    <DocumentGlyph className="h-5 w-5" />
+                  </div>
+                  <h3 className="mt-4 text-lg font-semibold tracking-tight text-slate-900">No analysis yet</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                    Review the packet and submit a question to see excerpts, citations, and reasoning steps here.
+                  </p>
                 </div>
-                <ol className="space-y-2 text-[0.98rem] leading-7 text-slate-700">
-                  {analysis?.reasoningSteps.map((step, index) => (
-                    <li key={`${step}-${index}`} className="flex gap-3">
-                      <span className="font-semibold text-slate-500">{index + 1}.</span>
-                      <span>{step}</span>
-                    </li>
-                  ))}
-                </ol>
-              </div>
+              )}
 
               <button className="flex w-full items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-[1.02rem] font-medium text-slate-700 shadow-sm transition-colors hover:bg-slate-50">
                 <DownloadGlyph />

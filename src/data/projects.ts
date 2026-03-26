@@ -24,6 +24,7 @@ export const projects: Project[] = [
     outcome:
       "Engineered a high-performance asynchronous pipeline using FinBERT for embeddings, FAISS for vector search, and Llama 3.1 via Ollama for context-aware answers.",
     techStack: ["Python", "FinBERT", "FAISS", "Llama 3.1", "Ollama", "Docker"],
+    githubUrl: "https://github.com/attarira/fin-search",
     demoUrl: "/projects/finsearchai/demo",
   },
   {
@@ -113,7 +114,7 @@ export const projects: Project[] = [
     outcome:
       "Evaluated multiple classifiers and optimized XGBoost to achieve 0.74 recall on high-risk cases.",
     techStack: ["Python", "Scikit-learn", "PyTorch", "XGBoost"],
-    githubUrl: "/coming-soon",
+    githubUrl: "https://github.com/attarira/heart-disease-ml-2.0",
   },
   {
     title: "Optimizing Hypervisor-Guest Communication",
