@@ -1,4 +1,6 @@
-
+import FinSearchAIDemo from "@/components/demos/FinSearchAIDemo";
+import LifeOSDemo from "@/components/demos/LifeOSDemo";
+import MediaWatcherDemo from "@/components/demos/MediaWatcherDemo";
 import TemplateDemo from "@/components/demos/TemplateDemo";
 import { projects } from "@/data/projects";
 
@@ -11,15 +13,12 @@ export function generateStaticParams() {
     }));
 }
 
-import LifeOSDemo from "@/components/demos/LifeOSDemo";
-import MediaWatcherDemo from "@/components/demos/MediaWatcherDemo";
-
 // Map project IDs to their specific demo components
 const demoRegistry: Record<string, React.ReactNode> = {
-  // Add future demos here when created, e.g. "media-watcher": <MediaWatcherDemo />
   "template": <TemplateDemo />,
+  "finsearchai": <FinSearchAIDemo />,
   "lifeos": <LifeOSDemo />,
-  "media-watcher": <MediaWatcherDemo />
+  "media-watcher": <MediaWatcherDemo />,
 };
 
 export default async function ProjectDemoPage({

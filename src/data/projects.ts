@@ -24,7 +24,7 @@ export const projects: Project[] = [
     outcome:
       "Engineered a high-performance asynchronous pipeline using FinBERT for embeddings, FAISS for vector search, and Llama 3.1 via Ollama for context-aware answers.",
     techStack: ["Python", "FinBERT", "FAISS", "Llama 3.1", "Ollama", "Docker"],
-    demoUrl: "/coming-soon",
+    demoUrl: "/projects/finsearchai/demo",
   },
   {
     id: "plant-disease-detection",
