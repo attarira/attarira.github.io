@@ -17,6 +17,74 @@ export interface Blog {
 
 export const blogs: Blog[] = [
   {
+    slug: "why-agent-evals-matter",
+    title: "Why Agent Evals Are Becoming the Real Bottleneck",
+    date: "Apr 5, 2026",
+    readTime: "3 min read",
+    preview:
+      "The hard part of building AI agents is no longer getting them to do something impressive once. It is figuring out whether they will keep doing the right thing across messy real workflows. Lately I have been thinking a lot about why evaluation is becoming the real bottleneck.",
+    tags: ["AI Agents", "Evals", "LLMs"],
+    content: [
+      {
+        type: "paragraph",
+        text: "I keep seeing the same pattern with agent systems. The first milestone comes quickly. You give the model tools, a loop, and a clear task, and suddenly it can search files, call APIs, and fix a bug that would have felt impossible a year ago. Then the real problem shows up. It works in the demo, but you do not actually know when it will fail in production."
+      },
+      {
+        type: "heading",
+        text: "The Demo Is Not the Product"
+      },
+      {
+        type: "paragraph",
+        text: "That gap has become the most interesting part of agent design for me. A surprisingly capable one-off run does not mean you have a reliable system. Agents fail in strange ways. Sometimes they take the wrong branch after a perfectly reasonable first step. Sometimes they use the right tool with the wrong assumptions. Sometimes they do almost everything correctly and then make a tiny decision that breaks the whole workflow."
+      },
+      {
+        type: "paragraph",
+        text: "Those failures are hard to catch because they do not look like normal software bugs. The code might be fine. The model might even look good on a benchmark. What breaks is the full interaction between prompt, tool use, retrieved context, and the sequence of decisions the agent makes along the way."
+      },
+      {
+        type: "heading",
+        text: "Why Traditional Testing Stops Helping"
+      },
+      {
+        type: "paragraph",
+        text: "Unit tests still matter, but they only cover part of the problem. If I am building a normal backend service, I can usually define inputs and expected outputs pretty tightly. Agent systems are messier. The same task can be solved through different action paths, and some paths are much riskier than others. A final answer might look acceptable while hiding a bad retrieval step, an unnecessary tool call, or a fragile chain of reasoning."
+      },
+      {
+        type: "list",
+        items: [
+          "Did the agent choose the right tool for the job?",
+          "Did it retrieve the right context before acting?",
+          "Did it recover well after an intermediate error?",
+          "Did it reach the answer efficiently, or just get lucky once?"
+        ]
+      },
+      {
+        type: "heading",
+        text: "What I Actually Want to Measure"
+      },
+      {
+        type: "paragraph",
+        text: "When I think about evals now, I care less about whether the final response sounds polished and more about whether the workflow was trustworthy. I want to know if the agent behaves well under realistic pressure: ambiguous instructions, noisy context, partial failures, and tasks that require multiple steps instead of one clean completion."
+      },
+      {
+        type: "paragraph",
+        text: "That has pushed me toward more scenario-based evaluation. Instead of asking, 'Can the model answer this question?' I am asking, 'Can the system complete this job without drifting, hallucinating, overusing tools, or silently skipping an important constraint?' That is a much harder question, but it is much closer to the real product."
+      },
+      {
+        type: "heading",
+        text: "The Evals Flywheel"
+      },
+      {
+        type: "paragraph",
+        text: "The teams that will build the best agents are probably not just the ones with the best prompts. They will be the ones with the best eval loops. Every bad trace, every near miss, and every weird failure mode becomes useful if it gets turned into a repeatable test case. Over time, that gives you something much more valuable than a flashy demo. It gives you a way to improve the system without guessing."
+      },
+      {
+        type: "paragraph",
+        text: "I think that is where the field is heading. Model quality still matters, but evaluation infrastructure is starting to matter just as much. Once agents can do real work, the main question is no longer whether they can act. It is whether you can trust how they act when the environment gets messy."
+      }
+    ]
+  },
+  {
     slug: "designing-autonomous-agents",
     title: "Designing Autonomous AI Agents for Software Engineering",
     date: "Mar 5, 2026",

@@ -59,7 +59,12 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
             className="mt-8 text-base font-light leading-relaxed text-slate-300 sm:text-lg"
           >
-            Over the past 3+ years, I’ve worked across healthcare, fintech, and enterprise software, focusing on making machine learning practical, scalable, and reliable in production.
+            Over the past 3+ years, I’ve worked across healthcare, fintech,
+            and enterprise software, focusing on making machine learning
+            practical, scalable, and reliable in production. I build
+            operational systems where decisions have real constraints, using ML
+            and agent-driven workflows to help teams make better real-time
+            decisions.
           </motion.p>
 
           <motion.div

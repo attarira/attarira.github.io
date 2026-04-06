@@ -126,7 +126,7 @@ export const projects: Project[] = [
     outcome:
       "Improved responsiveness by implementing hot unplugging and affinity adjustments for the UFO, CPS models.",
     techStack: ["C", "QEMU-KVM", "Virtualization"],
-    githubUrl: "/coming-soon",
+    githubUrl: "https://github.com/Nicyzk/ufo-cps",
   },
   {
     title: "An Analysis of Schedulers for the Cloud",
@@ -138,8 +138,8 @@ export const projects: Project[] = [
     outcome:
       "Benchmarked the Rorke scheduler against UFO, CPS frameworks, demonstrating up to 21% lower p95 latency.",
     techStack: ["Cloud Computing", "Virtualization", "Benchmarking"],
-    githubUrl: "/coming-soon",
-    paperUrl: "/coming-soon",
+    paperUrl:
+      "https://drive.google.com/file/d/1zGxY8gGxIjUBosQNMoV16_oznMn8ANAY/view?usp=sharing",
   },
   {
     title: "Bakery Business E-Commerce Application",
