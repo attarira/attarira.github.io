@@ -2,38 +2,44 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
-  { label: "Projects", href: "#projects" },
-  { label: "Writing", href: "#blog" },
-  { label: "Experience", href: "#experience" },
-  { label: "Skills", href: "#skills" },
-  { label: "Contact", href: "#contact" },
+  { label: "Projects", section: "projects" },
+  { label: "Writing", section: "blog" },
+  { label: "Experience", section: "experience" },
+  { label: "Skills", section: "skills" },
+  { label: "Contact", section: "contact" },
 ];
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+
+  const getNavHref = (section: string) =>
+    pathname === "/" ? `#${section}` : `/#${section}`;
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-black/50 backdrop-blur-md">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a
-          href="#"
+        <Link
+          href="/"
           className="text-lg font-semibold tracking-tight text-foreground transition-colors hover:text-accent-foreground"
         >
           RA
-        </a>
+        </Link>
 
         {/* Desktop nav */}
         <ul className="hidden items-center gap-8 md:flex">
           {navLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
+            <li key={link.section}>
+              <Link
+                href={getNavHref(link.section)}
                 className="text-sm text-muted transition-colors duration-200 hover:text-foreground"
               >
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -73,14 +79,14 @@ export default function Header() {
           >
             <ul className="flex flex-col gap-4 px-6 py-6">
               {navLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
+                <li key={link.section}>
+                  <Link
+                    href={getNavHref(link.section)}
                     onClick={() => setMobileOpen(false)}
                     className="text-sm text-muted transition-colors hover:text-foreground"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

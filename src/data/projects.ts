@@ -68,6 +68,23 @@ export const projects: Project[] = [
     demoUrl: "/projects/media-watcher/demo",
   },
   {
+    title: "Kepler Search",
+    date: "2026",
+    description:
+      "An astronomy research search platform that unifies fragmented scientific content into one interface.",
+    problem:
+      "Astronomy data lives across disconnected sources like NASA image libraries, exoplanet archives, star catalogs, and research papers, making discovery slow and forcing users to manually cross-reference results across multiple tools.",
+    outcome:
+      "Built a single search experience that brings together heterogeneous astronomy sources so researchers can move from exploration to cross-referenced discovery in one place.",
+    techStack: [
+      "Search",
+      "Information Retrieval",
+      "Astronomy Data",
+      "Research Platform",
+    ],
+    demoUrl: "/coming-soon",
+  },
+  {
     title: "Spike Sorting: Efficient Dimensionality Reduction",
     date: "Dec 2025",
     description:
@@ -151,7 +168,7 @@ export const projects: Project[] = [
     outcome:
       "Managed business logic with Node.js to streamline order processing, inventory management, and revenue tracking.",
     techStack: ["React", "Node.js", "E-Commerce"],
-    websiteUrl: "/coming-soon",
+    websiteUrl: "https://goriawallas.lovable.app/",
   },
   {
     title: "Operating System Kernel",
@@ -163,7 +180,7 @@ export const projects: Project[] = [
     outcome:
       "Configured device drivers and interrupt handlers to allow the execution of programs within protected memory.",
     techStack: ["C", "Assembly", "OS Development"],
-    githubUrl: "/coming-soon",
+    githubUrl: "https://github.com/attarira/kernel",
   },
   {
     title: "Movie Recommendation System",

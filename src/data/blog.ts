@@ -15,12 +15,41 @@ export interface Blog {
   content: ContentBlock[];
 }
 
-export const blogs: Blog[] = [
+type BlogSource = Omit<Blog, "readTime">;
+
+const WORDS_PER_MINUTE = 200;
+
+function countWords(text: string) {
+  return text.trim().split(/\s+/).filter(Boolean).length;
+}
+
+function calculateReadTime(content: ContentBlock[]) {
+  const wordCount = content.reduce((total, block) => {
+    switch (block.type) {
+      case "heading":
+      case "paragraph":
+      case "code":
+        return total + countWords(block.text);
+      case "list":
+        return (
+          total +
+          block.items.reduce((itemTotal, item) => itemTotal + countWords(item), 0)
+        );
+      default:
+        return total;
+    }
+  }, 0);
+
+  const minutes = Math.max(1, Math.ceil(wordCount / WORDS_PER_MINUTE));
+
+  return `${minutes} min read`;
+}
+
+const blogSources: BlogSource[] = [
   {
     slug: "why-agent-evals-matter",
     title: "Why Agent Evals Are Becoming the Real Bottleneck",
     date: "Apr 5, 2026",
-    readTime: "3 min read",
     preview:
       "The hard part of building AI agents is no longer getting them to do something impressive once. It is figuring out whether they will keep doing the right thing across messy real workflows. Lately I have been thinking a lot about why evaluation is becoming the real bottleneck.",
     tags: ["AI Agents", "Evals", "LLMs"],
@@ -88,7 +117,6 @@ export const blogs: Blog[] = [
     slug: "designing-autonomous-agents",
     title: "Designing Autonomous AI Agents for Software Engineering",
     date: "Mar 5, 2026",
-    readTime: "3 min read",
     preview: "I have been spending a lot of late nights building AI coding assistants, and I keep coming back to the jump from simple autocomplete to autonomous agents. Here is a quick look at what I have learned about helping them navigate codebases and debug without making a mess.",
     tags: ["AI Agents", "LLMs", "Software Engineering"],
     content: [
@@ -130,7 +158,6 @@ export const blogs: Blog[] = [
     slug: "beyond-vector-search",
     title: "Beyond Vector Search: When RAG Needs a Knowledge Graph",
     date: "Feb 5, 2026",
-    readTime: "2 min read",
     preview:
       "I have been experimenting with RAG a lot lately, but simple vector search kept breaking whenever my questions became even a little complex. This is a quick look at how I used SpanBERT and Gemini to build a lightweight knowledge graph and improve retrieval quality.",
     tags: ["LLM", "RAG", "Knowledge Graphs"],
@@ -190,7 +217,6 @@ export const blogs: Blog[] = [
     slug: "deploying-hospital-at-home-ai",
     title: "The Reality of Deploying Hospital-at-Home AI",
     date: "Jan 5, 2026",
-    readTime: "3 min read",
     preview:
       "Building an ML model in a notebook is much easier than deploying one to schedule real nurses and doctors. I spent months working on a real-time scheduling engine for home healthcare, and these are the practical lessons I learned about constraints, reliability, and why MLOps matters.",
     tags: ["AI in Healthcare", "MLOps", "Scheduling Algorithms"],
@@ -251,3 +277,8 @@ export const blogs: Blog[] = [
     ]
   }
 ];
+
+export const blogs: Blog[] = blogSources.map((blog) => ({
+  ...blog,
+  readTime: calculateReadTime(blog.content),
+}));

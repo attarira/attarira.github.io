@@ -17,7 +17,6 @@ const autoBlog = `
     slug: "monthly-update-${monthName.toLowerCase()}-${today.getFullYear()}",
     title: "${monthName} ${today.getFullYear()} Update",
     date: "${formattedDate}",
-    readTime: "2 min read",
     preview: "Automated monthly update checking in on progress, ongoing experiments, and recent learnings for ${monthName} ${today.getFullYear()}.",
     tags: ["Personal", "Update"],
     content: [
