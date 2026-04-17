@@ -68,6 +68,7 @@ export const projects: Project[] = [
     demoUrl: "/projects/media-watcher/demo",
   },
   {
+    id: "kepler-search",
     title: "Kepler Search",
     date: "2026",
     description:
@@ -82,7 +83,7 @@ export const projects: Project[] = [
       "Astronomy Data",
       "Research Platform",
     ],
-    demoUrl: "/coming-soon",
+    demoUrl: "/projects/kepler-search/demo",
   },
   {
     title: "Spike Sorting: Efficient Dimensionality Reduction",

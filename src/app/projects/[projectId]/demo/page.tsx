@@ -1,4 +1,5 @@
 import FinSearchAIDemo from "@/components/demos/FinSearchAIDemo";
+import KeplerSearchDemo from "@/components/demos/KeplerSearchDemo";
 import LifeOSDemo from "@/components/demos/LifeOSDemo";
 import MediaWatcherDemo from "@/components/demos/MediaWatcherDemo";
 import TemplateDemo from "@/components/demos/TemplateDemo";
@@ -17,6 +18,7 @@ export function generateStaticParams() {
 const demoRegistry: Record<string, React.ReactNode> = {
   "template": <TemplateDemo />,
   "finsearchai": <FinSearchAIDemo />,
+  "kepler-search": <KeplerSearchDemo />,
   "lifeos": <LifeOSDemo />,
   "media-watcher": <MediaWatcherDemo />,
 };
