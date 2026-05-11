@@ -47,6 +47,73 @@ function calculateReadTime(content: ContentBlock[]) {
 
 const blogSources: BlogSource[] = [
   {
+    slug: "context-engineering-matters-more-than-prompting",
+    title: "Why Context Engineering Is Starting to Matter More Than Prompting",
+    date: "May 5, 2026",
+    preview:
+      "I used to think most AI product quality problems would be solved with better prompts. The more systems I build, the more I think the real leverage comes from context engineering: deciding what the model sees, when it sees it, and what it should ignore.",
+    tags: ["AI Agents", "Context Engineering", "LLMs"],
+    content: [
+      {
+        type: "paragraph",
+        text: "For a while, prompting felt like the main craft in AI products. Everyone was trading system prompts, tone instructions, and little formatting tricks that made the model look smarter. That still matters, but it has started to feel like the wrong layer to obsess over. Once a model is doing real work over multiple steps, the biggest gains usually come from the context you give it, not from one more clever sentence in the prompt."
+      },
+      {
+        type: "heading",
+        text: "Prompts Break When Work Gets Long"
+      },
+      {
+        type: "paragraph",
+        text: "I notice this most clearly in agent workflows. A prompt can help an agent start well, but long tasks expose a different set of problems. The model picks up stale information, misses an important file, overweights something irrelevant, or loses the original constraint halfway through the run. From the outside, it can look like reasoning failure. In practice, it is often a context failure."
+      },
+      {
+        type: "paragraph",
+        text: "That changed how I debug these systems. When an agent does something strange, I am less likely to ask, 'How do I rewrite the instruction?' and more likely to ask, 'What did it see right before it made that decision?' A mediocre prompt with the right context often beats a polished prompt with noisy context."
+      },
+      {
+        type: "heading",
+        text: "Context Is a System Design Problem"
+      },
+      {
+        type: "paragraph",
+        text: "The hard part is that context engineering is not just retrieval. It is the full pipeline of deciding what enters working memory and how long it stays there. That includes the system prompt, retrieved documents, conversation history, tool results, scratchpad notes, and any structured state the product keeps between steps. All of that shapes the model's behavior."
+      },
+      {
+        type: "list",
+        items: [
+          "What should the model see right now to make the next decision well?",
+          "What should stay out because it is distracting, stale, or misleading?",
+          "What needs to persist across turns instead of being rediscovered every time?",
+          "What evidence should be retrieved before the model is allowed to act?"
+        ]
+      },
+      {
+        type: "heading",
+        text: "Compression Matters More Than Hoarding"
+      },
+      {
+        type: "paragraph",
+        text: "A common mistake is treating larger context windows like an excuse to stuff everything in. I have done that myself. It feels safe because nothing is thrown away, but the result is often worse. More text does not automatically produce better decisions. If the important facts are buried inside low-signal history, the model has to sort through clutter before it can act. Sometimes it never really does."
+      },
+      {
+        type: "paragraph",
+        text: "The better pattern has been selective compression. Instead of carrying raw history forever, I want the system to keep compact state: the user goal, constraints that still matter, decisions already made, and the evidence behind those decisions. That is much closer to how good engineers work. We do not reread every message in a long thread. We maintain a useful mental model and refresh it when needed."
+      },
+      {
+        type: "heading",
+        text: "Why This Changes Product Design"
+      },
+      {
+        type: "paragraph",
+        text: "Once I started thinking this way, AI product design began to look less like prompt writing and more like systems engineering. You need retrieval rules, memory policies, summarization strategy, and clear boundaries around which tools can introduce new context into the loop. The model is still important, but its performance depends heavily on whether the surrounding system keeps its attention pointed at the right facts."
+      },
+      {
+        type: "paragraph",
+        text: "I think that is why context engineering is starting to feel like its own discipline. Better models will keep helping, but they will not remove the need to manage information flow carefully. If an AI product feels inconsistent, there is a good chance the problem is not that the model cannot think. It is that the system is not giving it the right things to think with."
+      }
+    ]
+  },
+  {
     slug: "why-agent-evals-matter",
     title: "Why Agent Evals Are Becoming the Real Bottleneck",
     date: "Apr 5, 2026",
