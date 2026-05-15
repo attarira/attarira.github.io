@@ -184,6 +184,7 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/attarira/kernel",
   },
   {
+    id: "movie-rec-sys",
     title: "Movie Recommendation System",
     date: "Mar 2020 - May 2020",
     description:
@@ -193,8 +194,8 @@ export const projects: Project[] = [
     outcome:
       "Performed research on and implemented various classification ML models, including XGBoost and Random Forests.",
     techStack: ["Java", "Machine Learning", "XGBoost", "Random Forest"],
-    githubUrl: "/coming-soon",
-    demoUrl: "/coming-soon",
+    githubUrl: "https://github.com/attarira/movie-rec-sys",
+    demoUrl: "/projects/movie-rec-sys/demo",
   },
   {
     title: "Hospital-at-Home AI Scheduling Engine",

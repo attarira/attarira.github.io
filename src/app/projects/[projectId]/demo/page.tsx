@@ -2,6 +2,7 @@ import FinSearchAIDemo from "@/components/demos/FinSearchAIDemo";
 import KeplerSearchDemo from "@/components/demos/KeplerSearchDemo";
 import LifeOSDemo from "@/components/demos/LifeOSDemo";
 import MediaWatcherDemo from "@/components/demos/MediaWatcherDemo";
+import MovieRecommendationDemo from "@/components/demos/MovieRecommendationDemo";
 import TemplateDemo from "@/components/demos/TemplateDemo";
 import { projects } from "@/data/projects";
 
@@ -21,6 +22,7 @@ const demoRegistry: Record<string, React.ReactNode> = {
   "kepler-search": <KeplerSearchDemo />,
   "lifeos": <LifeOSDemo />,
   "media-watcher": <MediaWatcherDemo />,
+  "movie-rec-sys": <MovieRecommendationDemo />,
 };
 
 export default async function ProjectDemoPage({

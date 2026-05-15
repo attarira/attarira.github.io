@@ -340,7 +340,7 @@ const KEPLER_DEMO_DATA: KeplerDemoData = {
 };
 
 const INTRO_MESSAGE =
-  "Ask across NASA datasets, arXiv papers, and star catalogs. The demo will ground answers in retrieved records and sketch a research thread across sources.";
+  "Search across NASA datasets, arXiv literature, and star catalogs. Responses are grounded in retrieved records and organized around cross-source research context.";
 
 const SUGGESTED_QUERIES = [
   "papers on black hole imaging",
@@ -473,10 +473,10 @@ function buildMockResponse(question: string, library: KeplerResult[]): DemoRespo
         support?.title ?? "the supporting records"
       } adds complementary context from ${support?.provider ?? "another source"}. ${
         context
-          ? `${context.title} helps connect the search to a wider research thread instead of leaving it as a single-source lookup.`
+          ? `${context.title} helps connect the search to adjacent evidence beyond a single-source lookup.`
           : "The retrieved mix stays grounded across multiple source types."
       }`
-    : `I searched for ${topic}, but this demo did not retrieve any records.`;
+    : `No retrieved records matched ${topic}. Try a more specific astronomy query or include a source type such as datasets, papers, or catalog objects.`;
 
   const researchThreadSummary = anchor
     ? `The strongest thread links ${anchor.provider} ${
@@ -485,8 +485,8 @@ function buildMockResponse(question: string, library: KeplerResult[]): DemoRespo
         support?.provider ?? "a second source"
       } context, then uses ${
         context?.provider ?? "catalog evidence"
-      } to give the query a broader discovery path. This is the core value of the blended Kepler Search workflow.`
-    : "Ask a more specific astronomy question to generate a cross-source thread.";
+      } to identify a broader discovery path across the retrieved corpus.`
+    : "Ask a more specific astronomy question to generate cross-source context.";
 
   const threadConnections = [
     anchor && support
@@ -774,8 +774,9 @@ function KeplerSearchExperience({ snapshot }: { snapshot: KeplerDemoData }) {
                   Search the astronomy research graph in one place.
                 </h2>
                 <p className="mt-4 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-                  Dark, cinematic search UI for blending NASA datasets, arXiv
-                  papers, and star catalogs into one research workflow.
+                  A unified research interface for searching NASA datasets,
+                  arXiv literature, star catalogs, and exoplanet records from
+                  one workspace.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {["NASA Datasets", "arXiv Papers", "Gaia DR3", "Exoplanet Archive"].map((item) => (
@@ -835,7 +836,7 @@ function KeplerSearchExperience({ snapshot }: { snapshot: KeplerDemoData }) {
                         void sendQuestion();
                       }
                     }}
-                    placeholder="Ask for papers on black hole imaging, NASA datasets related to star formation, stars similar to Sirius, or a cross-source research thread on exoplanet transits..."
+                    placeholder="Search for papers on black hole imaging, NASA datasets related to star formation, stars similar to Sirius, or cross-source evidence on exoplanet transits..."
                     value={query}
                   />
 
@@ -1005,7 +1006,7 @@ function KeplerSearchExperience({ snapshot }: { snapshot: KeplerDemoData }) {
                   </h3>
                   <p className="mt-5 text-base leading-8 text-slate-200">
                     {response?.researchThreadSummary ??
-                      "Ask a more specific question to generate a cross-source research thread."}
+                      "Ask a more specific question to generate cross-source research context."}
                   </p>
                   {response?.threadConnections.length ? (
                     <div className="mt-6 space-y-3">
