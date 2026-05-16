@@ -237,6 +237,7 @@ export const projects: Project[] = [
     demoUrl: "/coming-soon",
   },
   {
+    id: "real-time-sentiment-analysis",
     title: "Real-Time Sentiment Analysis Engine",
     description:
       "Probabilistic sentiment analysis system performing real-time text classification of customer support conversations to enhance feedback-driven decision-making.",
@@ -251,7 +252,7 @@ export const projects: Project[] = [
       "Python",
       "NLP",
     ],
-    demoUrl: "/coming-soon",
+    demoUrl: "/projects/real-time-sentiment-analysis/demo",
   },
 
 ];

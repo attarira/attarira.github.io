@@ -3,6 +3,7 @@ import KeplerSearchDemo from "@/components/demos/KeplerSearchDemo";
 import LifeOSDemo from "@/components/demos/LifeOSDemo";
 import MediaWatcherDemo from "@/components/demos/MediaWatcherDemo";
 import MovieRecommendationDemo from "@/components/demos/MovieRecommendationDemo";
+import RealTimeSentimentDemo from "@/components/demos/RealTimeSentimentDemo";
 import TemplateDemo from "@/components/demos/TemplateDemo";
 import { projects } from "@/data/projects";
 
@@ -23,6 +24,7 @@ const demoRegistry: Record<string, React.ReactNode> = {
   "lifeos": <LifeOSDemo />,
   "media-watcher": <MediaWatcherDemo />,
   "movie-rec-sys": <MovieRecommendationDemo />,
+  "real-time-sentiment-analysis": <RealTimeSentimentDemo />,
 };
 
 export default async function ProjectDemoPage({
