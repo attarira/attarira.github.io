@@ -38,6 +38,7 @@ export const projects: Project[] = [
       "Evaluated traditional CV feature extraction and CNN models on the PlantVillage dataset, deploying the optimal model via a Flask web application.",
     techStack: ["Python", "Computer Vision", "CNN", "Flask", "Machine Learning"],
     githubUrl: "https://github.com/attarira/plant-disease-detection",
+    demoUrl: "/projects/plant-disease-detection/demo",
   },
   {
     id: "lifeos",
