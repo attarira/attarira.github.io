@@ -195,35 +195,6 @@ function getInitialData(): MockLifeOSData {
 
 // --- Sub-components ---
 
-const TaskStatusRing = ({ tasks, segments }: { tasks: number; segments: ProgressSegment[] }) => {
-  const radius = 20;
-  const circumference = 2 * Math.PI * radius;
-  const parsed = segments.reduce(
-    (acc, seg) => {
-      acc.items.push({ ...seg, da: `${(seg.value / 100) * circumference} ${circumference}`, off: -acc.o });
-      acc.o += (seg.value / 100) * circumference;
-      return acc;
-    },
-    { o: 0, items: [] as (ProgressSegment & { da: string; off: number })[] }
-  ).items;
-
-  return (
-    <div className="relative flex items-center justify-center w-12 h-12">
-      <svg className="w-full h-full transform -rotate-90" viewBox="0 0 48 48">
-        <circle cx="24" cy="24" r={radius} fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="3" />
-        {parsed.map((s, i) => (
-          <circle key={i} cx="24" cy="24" r={radius} fill="none" stroke={s.color} strokeWidth="3"
-            strokeDasharray={s.da} strokeDashoffset={s.off} className="transition-all duration-1000 ease-out" strokeLinecap="round" />
-        ))}
-      </svg>
-      <div className="absolute flex flex-col items-center justify-center pt-[2px]">
-        <span className="text-[10px] font-bold leading-none text-white">{tasks}</span>
-        <span className="text-[5px] font-bold tracking-widest text-white/70 uppercase scale-75 mt-[1px]">TASKS</span>
-      </div>
-    </div>
-  );
-};
-
 // --- Main Component ---
 export default function LifeOSDemo() {
   const [dashData, setDashData] = useState<MockLifeOSData | null>(null);
@@ -579,8 +550,8 @@ function LifeOSDashboard({ initialData, dashData, setDashData, chatOpen, setChat
                                 let currentOffset = 0;
                                 const circumference = 2 * Math.PI * 33;
                                 return area.segments.map((seg, i) => {
-                                  let off = -currentOffset;
-                                  let da = `${(seg.value / 100) * circumference} ${circumference}`;
+                                  const off = -currentOffset;
+                                  const da = `${(seg.value / 100) * circumference} ${circumference}`;
                                   currentOffset += (seg.value / 100) * circumference;
                                   return (
                                     <circle key={i} cx="36" cy="36" r={33} fill="none" stroke={seg.color} strokeWidth="6" strokeDasharray={da} strokeDashoffset={off} strokeLinecap="round" className="transition-all duration-1000 ease-out" />

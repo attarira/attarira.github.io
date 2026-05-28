@@ -11,6 +11,10 @@ const DOT_RADIUS = 2.5;
 const TOTAL = COLS * ROWS;  // 288 dots
 const SVG_W = COLS * CELL;
 const SVG_H = ROWS * CELL;
+const DOTS = Array.from({ length: TOTAL }, (_, i) => ({
+  cx: (i % COLS) * CELL + CELL / 2,
+  cy: Math.floor(i / COLS) * CELL + CELL / 2,
+}));
 
 /* ─── Colours ─── */
 const COLOR_REST = "#27272a";
@@ -20,14 +24,6 @@ const COLOR_ACTIVE = "#a1a1aa";
 export default function AnimeGrid() {
   const svgRef = useRef<SVGSVGElement>(null);
   const throttleRef = useRef(false);
-
-  /* ── Precomputed dot positions ── */
-  const dots = useRef(
-    Array.from({ length: TOTAL }, (_, i) => ({
-      cx: (i % COLS) * CELL + CELL / 2,
-      cy: Math.floor(i / COLS) * CELL + CELL / 2,
-    }))
-  );
 
   /* ── Convert mouse coords → closest grid index ── */
   const getIndex = useCallback((clientX: number, clientY: number): number => {
@@ -132,7 +128,7 @@ export default function AnimeGrid() {
       aria-hidden="true"
       style={{ cursor: "crosshair" }}
     >
-      {dots.current.map((d, i) => (
+      {DOTS.map((d, i) => (
         <circle
           key={i}
           className="gd"

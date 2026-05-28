@@ -1,19 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 export default function Footer() {
-  const [year, setYear] = useState<number | null>(null);
-
-  useEffect(() => {
-    setYear(new Date().getFullYear());
-  }, []);
+  const year = new Date().getFullYear();
 
   return (
     <footer className="border-t border-border/50 bg-background">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 sm:flex-row">
         <p className="text-sm text-muted-foreground w-48">
-          {year ? `© ${year} Rayaan Attari` : "© Rayaan Attari"}
+          © {year} Rayaan Attari
         </p>
         <div className="flex items-center gap-6">
           <a

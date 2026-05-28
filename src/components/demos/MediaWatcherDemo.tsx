@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import DemoShell from "./DemoShell";
 import { getMockData } from "@/lib/mockAPI";
@@ -280,7 +281,7 @@ export default function MediaWatcherDemo() {
                            className={`flex items-center gap-3 p-2 rounded-lg cursor-pointer transition-colors ${comp.id === dashData.company.id ? 'bg-slate-100/50 ring-1 ring-slate-200' : 'hover:bg-slate-50'}`}>
                         {comp.logoUrl ? (
                           <div className={`w-7 h-7 rounded bg-white flex items-center justify-center p-1 overflow-hidden shrink-0 border ${comp.id === dashData.company.id ? 'border-slate-300 shadow-sm' : 'border-slate-200 shadow-sm'}`}>
-                            <img src={comp.logoUrl} alt={comp.name} className="w-full h-full object-contain" />
+                            <Image src={comp.logoUrl} alt={comp.name} width={28} height={28} className="h-full w-full object-contain" />
                           </div>
                         ) : (
                           <div className={`w-7 h-7 rounded-full flex items-center justify-center font-bold text-[11px] shrink-0 text-white ${comp.logoColor}`}>
@@ -333,7 +334,7 @@ export default function MediaWatcherDemo() {
                   <div className="flex items-center gap-3 mb-6">
                     {dashData.company.logoUrl ? (
                       <div className="w-9 h-9 rounded bg-white border border-slate-200 flex items-center justify-center p-1.5 shadow-sm overflow-hidden shrink-0">
-                        <img src={dashData.company.logoUrl} alt={dashData.company.name} className="w-full h-full object-contain" />
+                        <Image src={dashData.company.logoUrl} alt={dashData.company.name} width={36} height={36} className="h-full w-full object-contain" />
                       </div>
                     ) : (
                       <div className="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shrink-0">
@@ -410,7 +411,7 @@ export default function MediaWatcherDemo() {
                       <div className="flex items-center gap-2 mb-3">
                         {news.sourceLogoUrl ? (
                           <div className="w-6 h-6 rounded bg-slate-50 flex items-center justify-center border border-slate-200 p-0.5 shadow-[0_1px_2px_rgba(0,0,0,0.05)] overflow-hidden shrink-0">
-                            <img src={news.sourceLogoUrl} alt={news.source} className="w-full h-full object-contain" />
+                            <Image src={news.sourceLogoUrl} alt={news.source} width={24} height={24} className="h-full w-full object-contain" />
                           </div>
                         ) : (
                           <div className="w-6 h-6 rounded-full bg-indigo-700 text-white flex items-center justify-center text-[10px] font-bold shrink-0">

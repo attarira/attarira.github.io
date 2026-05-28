@@ -14,33 +14,6 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: "finsearchai",
-    title: "FinSearchAI: Intelligent Financial Document Search & Analysis",
-    date: "Jan 2026",
-    description:
-      "A production-ready, fully local open-source semantic search and question-answering system specifically designed for financial documents.",
-    problem:
-      "Enabling secure, offline semantic search and RAG capabilities for complex financial documents without relying on external APIs.",
-    outcome:
-      "Engineered a high-performance asynchronous pipeline using FinBERT for embeddings, FAISS for vector search, and Llama 3.1 via Ollama for context-aware answers.",
-    techStack: ["Python", "FinBERT", "FAISS", "Llama 3.1", "Ollama", "Docker"],
-    githubUrl: "https://github.com/attarira/fin-search",
-    demoUrl: "/projects/finsearchai/demo",
-  },
-  {
-    id: "plant-disease-detection",
-    title: "Plant Disease Detection System",
-    description:
-      "A computer vision system for detecting and classifying plant diseases from leaf images, combining traditional CV approaches with deep learning techniques.",
-    problem:
-      "Accurately identifying plant diseases from varied leaf images to support early agricultural intervention.",
-    outcome:
-      "Evaluated traditional CV feature extraction and CNN models on the PlantVillage dataset, deploying the optimal model via a Flask web application.",
-    techStack: ["Python", "Computer Vision", "CNN", "Flask", "Machine Learning"],
-    githubUrl: "https://github.com/attarira/plant-disease-detection",
-    demoUrl: "/projects/plant-disease-detection/demo",
-  },
-  {
     id: "lifeos",
     title: "LifeOS: Personal Planning & Decision Agent",
     date: "Feb 2026",
@@ -55,6 +28,20 @@ export const projects: Project[] = [
     demoUrl: "/projects/lifeos/demo",
   },
   {
+    id: "finsearchai",
+    title: "FinSearchAI: Intelligent Financial Document Search & Analysis",
+    date: "Jan 2026",
+    description:
+      "A production-ready, fully local open-source semantic search and question-answering system specifically designed for financial documents.",
+    problem:
+      "Enabling secure, offline semantic search and RAG capabilities for complex financial documents without relying on external APIs.",
+    outcome:
+      "Engineered a high-performance asynchronous pipeline using FinBERT for embeddings, FAISS for vector search, and Llama 3.1 via Ollama for context-aware answers.",
+    techStack: ["Python", "FinBERT", "FAISS", "Llama 3.1", "Ollama", "Docker"],
+    githubUrl: "https://github.com/attarira/fin-search",
+    demoUrl: "/projects/finsearchai/demo",
+  },
+  {
     id: "media-watcher",
     title: "Media Watcher: AI-powered News Intelligence",
     date: "Jan 2026",
@@ -67,6 +54,45 @@ export const projects: Project[] = [
     techStack: ["Python", "Gemini", "RAG", "Sentiment Analysis"],
     githubUrl: "https://github.com/attarira/media-watcher",
     demoUrl: "/projects/media-watcher/demo",
+  },
+  {
+    title: "AI Credit Risk Early Warning System",
+    description:
+      "Ensemble-based early warning system that forecasts credit default and portfolio risk 3–6 months in advance for financial institutions.",
+    problem:
+      "Enabling proactive credit monitoring and compliance across 15+ banks with explainable, trustworthy AI risk scoring.",
+    outcome:
+      "Achieved 0.68+ AUC with ensemble models, cut ML prep time by 75% with automated PySpark ETL, and delivered real-time dashboards to mitigate millions in potential credit losses.",
+    techStack: [
+      "PyTorch",
+      "PySpark",
+      "Gradient Boosting",
+      "Random Forest",
+      "LangChain",
+      "MCP",
+    ],
+    githubUrl: "/coming-soon",
+    demoUrl: "/coming-soon",
+  },
+  {
+    title: "Hospital-at-Home AI Scheduling Engine",
+    description:
+      "AI-driven scheduling and routing system for Hospital-at-Home care, optimizing real-time clinician dispatch to improve patient outcomes at scale.",
+    problem:
+      "Matching the right clinician to the right patient at the right time across dynamic, resource-constrained home healthcare operations.",
+    outcome:
+      "Accelerated Hospital-at-Home operations by 2x, reduced scheduling overhead by 20%, and boosted clinician utilization by 12% across 10,000+ daily optimization scenarios.",
+    techStack: [
+      "Python",
+      "PyTorch",
+      "LSTM",
+      "ARIMA",
+      "PostgreSQL",
+      "MLflow",
+      "Docker",
+      "Kubernetes",
+    ],
+    demoUrl: "/coming-soon",
   },
   {
     id: "kepler-search",
@@ -85,6 +111,37 @@ export const projects: Project[] = [
       "Research Platform",
     ],
     demoUrl: "/projects/kepler-search/demo",
+  },
+  {
+    id: "plant-disease-detection",
+    title: "Plant Disease Detection System",
+    description:
+      "A computer vision system for detecting and classifying plant diseases from leaf images, combining traditional CV approaches with deep learning techniques.",
+    problem:
+      "Accurately identifying plant diseases from varied leaf images to support early agricultural intervention.",
+    outcome:
+      "Evaluated traditional CV feature extraction and CNN models on the PlantVillage dataset, deploying the optimal model via a Flask web application.",
+    techStack: ["Python", "Computer Vision", "CNN", "Flask", "Machine Learning"],
+    githubUrl: "https://github.com/attarira/plant-disease-detection",
+    demoUrl: "/projects/plant-disease-detection/demo",
+  },
+  {
+    id: "real-time-sentiment-analysis",
+    title: "Real-Time Sentiment Analysis Engine",
+    description:
+      "Probabilistic sentiment analysis system performing real-time text classification of customer support conversations to enhance feedback-driven decision-making.",
+    problem:
+      "Processing multi-source streaming and batch data at scale with minimal latency for actionable customer intelligence.",
+    outcome:
+      "Built high-throughput Spark ETL pipelines at 3x scale, reducing inference latency and driving a 50% increase in customer retention.",
+    techStack: [
+      "PyTorch",
+      "TensorFlow",
+      "Apache Spark",
+      "Python",
+      "NLP",
+    ],
+    demoUrl: "/projects/real-time-sentiment-analysis/demo",
   },
   {
     title: "Spike Sorting: Efficient Dimensionality Reduction",
@@ -112,30 +169,6 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/attarira/semantic-search",
   },
   {
-    title: "Neural Network Dependency Parser",
-    date: "Feb 2025",
-    description:
-      "Implemented a feed-forward neural network to predict syntactic transition labels in an arc-standard dependency parser.",
-    problem:
-      "Parsing complex sentence structures and predicting syntactic transitions accurately.",
-    outcome:
-      "Engineered feature embeddings for POS tags, dependency arcs, and stack buffering, achieving a LAS score of 70 in testing.",
-    techStack: ["Python", "TensorFlow"],
-    githubUrl: "https://github.com/attarira/neural-dependency-parser",
-  },
-  {
-    title: "Predicting Risk of Heart Disease",
-    date: "Jan 2025",
-    description:
-      "Developed ML models on CDC health survey data to predict risk of heart disease and support early intervention.",
-    problem:
-      "Identifying high-risk patients efficiently using clinical and lifestyle features from survey data.",
-    outcome:
-      "Evaluated multiple classifiers and optimized XGBoost to achieve 0.74 recall on high-risk cases.",
-    techStack: ["Python", "Scikit-learn", "PyTorch", "XGBoost"],
-    githubUrl: "https://github.com/attarira/heart-disease-ml-2.0",
-  },
-  {
     title: "Optimizing Hypervisor-Guest Communication",
     date: "Sep 2024 - Present",
     description:
@@ -161,16 +194,16 @@ export const projects: Project[] = [
       "https://drive.google.com/file/d/1zGxY8gGxIjUBosQNMoV16_oznMn8ANAY/view?usp=sharing",
   },
   {
-    title: "Bakery Business E-Commerce Application",
-    date: "Mar 2022 - Sep 2024",
+    title: "Predicting Risk of Heart Disease",
+    date: "Jan 2025",
     description:
-      "Developed a web interface for a family-owned bakery business to improve customer engagement.",
+      "Developed ML models on CDC health survey data to predict risk of heart disease and support early intervention.",
     problem:
-      "Modernizing a traditional bakery business with an online presence for order processing and inventory.",
+      "Identifying high-risk patients efficiently using clinical and lifestyle features from survey data.",
     outcome:
-      "Managed business logic with Node.js to streamline order processing, inventory management, and revenue tracking.",
-    techStack: ["React", "Node.js", "E-Commerce"],
-    websiteUrl: "https://goriawallas.lovable.app/",
+      "Evaluated multiple classifiers and optimized XGBoost to achieve 0.74 recall on high-risk cases.",
+    techStack: ["Python", "Scikit-learn", "PyTorch", "XGBoost"],
+    githubUrl: "https://github.com/attarira/heart-disease-ml-2.0",
   },
   {
     title: "Operating System Kernel",
@@ -183,6 +216,30 @@ export const projects: Project[] = [
       "Configured device drivers and interrupt handlers to allow the execution of programs within protected memory.",
     techStack: ["C", "Assembly", "OS Development"],
     githubUrl: "https://github.com/attarira/kernel",
+  },
+  {
+    title: "Neural Network Dependency Parser",
+    date: "Feb 2025",
+    description:
+      "Implemented a feed-forward neural network to predict syntactic transition labels in an arc-standard dependency parser.",
+    problem:
+      "Parsing complex sentence structures and predicting syntactic transitions accurately.",
+    outcome:
+      "Engineered feature embeddings for POS tags, dependency arcs, and stack buffering, achieving a LAS score of 70 in testing.",
+    techStack: ["Python", "TensorFlow"],
+    githubUrl: "https://github.com/attarira/neural-dependency-parser",
+  },
+  {
+    title: "Bakery Business E-Commerce Application",
+    date: "Mar 2022 - Sep 2024",
+    description:
+      "Developed a web interface for a family-owned bakery business to improve customer engagement.",
+    problem:
+      "Modernizing a traditional bakery business with an online presence for order processing and inventory.",
+    outcome:
+      "Managed business logic with Node.js to streamline order processing, inventory management, and revenue tracking.",
+    techStack: ["React", "Node.js", "E-Commerce"],
+    websiteUrl: "https://goriawallas.lovable.app/",
   },
   {
     id: "movie-rec-sys",
@@ -198,62 +255,4 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/attarira/movie-rec-sys",
     demoUrl: "/projects/movie-rec-sys/demo",
   },
-  {
-    title: "Hospital-at-Home AI Scheduling Engine",
-    description:
-      "AI-driven scheduling and routing system for Hospital-at-Home care, optimizing real-time clinician dispatch to improve patient outcomes at scale.",
-    problem:
-      "Matching the right clinician to the right patient at the right time across dynamic, resource-constrained home healthcare operations.",
-    outcome:
-      "Accelerated Hospital-at-Home operations by 2x, reduced scheduling overhead by 20%, and boosted clinician utilization by 12% across 10,000+ daily optimization scenarios.",
-    techStack: [
-      "Python",
-      "PyTorch",
-      "LSTM",
-      "ARIMA",
-      "PostgreSQL",
-      "MLflow",
-      "Docker",
-      "Kubernetes",
-    ],
-    demoUrl: "/coming-soon",
-  },
-  {
-    title: "AI Credit Risk Early Warning System",
-    description:
-      "Ensemble-based early warning system that forecasts credit default and portfolio risk 3–6 months in advance for financial institutions.",
-    problem:
-      "Enabling proactive credit monitoring and compliance across 15+ banks with explainable, trustworthy AI risk scoring.",
-    outcome:
-      "Achieved 0.68+ AUC with ensemble models, cut ML prep time by 75% with automated PySpark ETL, and delivered real-time dashboards to mitigate millions in potential credit losses.",
-    techStack: [
-      "PyTorch",
-      "PySpark",
-      "Gradient Boosting",
-      "Random Forest",
-      "LangChain",
-      "MCP",
-    ],
-    githubUrl: "/coming-soon",
-    demoUrl: "/coming-soon",
-  },
-  {
-    id: "real-time-sentiment-analysis",
-    title: "Real-Time Sentiment Analysis Engine",
-    description:
-      "Probabilistic sentiment analysis system performing real-time text classification of customer support conversations to enhance feedback-driven decision-making.",
-    problem:
-      "Processing multi-source streaming and batch data at scale with minimal latency for actionable customer intelligence.",
-    outcome:
-      "Built high-throughput Spark ETL pipelines at 3x scale, reducing inference latency and driving a 50% increase in customer retention.",
-    techStack: [
-      "PyTorch",
-      "TensorFlow",
-      "Apache Spark",
-      "Python",
-      "NLP",
-    ],
-    demoUrl: "/projects/real-time-sentiment-analysis/demo",
-  },
-
 ];

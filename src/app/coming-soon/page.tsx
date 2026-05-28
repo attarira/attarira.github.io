@@ -23,7 +23,7 @@ export default function ComingSoon() {
         </h1>
         
         <p className="mb-8 text-sm leading-relaxed text-muted-foreground">
-          This project link is currently being updated. I'm actively working on adding the source code, demo, or documentation. Please check back later!
+          This project link is currently being updated. I&apos;m actively working on adding the source code, demo, or documentation. Please check back later!
         </p>
 
         <Link
