@@ -14,6 +14,16 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: "pipeline-builder",
+    title: "AI Workflow Builder",
+    date: "Jun 2026",
+    description: "A dynamic, node-based workflow editor for building and visualizing AI pipelines.",
+    problem: "Simplifying the creation of complex AI agent workflows through a visual node-based interface.",
+    outcome: "Built a fully interactive React Flow canvas allowing users to drag, connect, and configure various AI nodes like LLMs, Math, and API calls.",
+    techStack: ["React", "React Flow", "Zustand", "Tailwind CSS"],
+    demoUrl: "/projects/pipeline-builder/demo",
+  },
+  {
     id: "lifeos",
     title: "LifeOS: Personal Planning & Decision Agent",
     date: "Feb 2026",

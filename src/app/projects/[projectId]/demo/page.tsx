@@ -6,6 +6,7 @@ import MovieRecommendationDemo from "@/components/demos/MovieRecommendationDemo"
 import PlantDiseaseDetectionDemo from "@/components/demos/PlantDiseaseDetectionDemo";
 import RealTimeSentimentDemo from "@/components/demos/RealTimeSentimentDemo";
 import TemplateDemo from "@/components/demos/TemplateDemo";
+import PipelineBuilderDemo from "@/components/demos/PipelineBuilderDemo";
 import { projects } from "@/data/projects";
 
 // Generate static routes for any projects that have a defined 'id' and 'demoUrl'
@@ -27,6 +28,7 @@ const demoRegistry: Record<string, React.ReactNode> = {
   "movie-rec-sys": <MovieRecommendationDemo />,
   "plant-disease-detection": <PlantDiseaseDetectionDemo />,
   "real-time-sentiment-analysis": <RealTimeSentimentDemo />,
+  "pipeline-builder": <PipelineBuilderDemo />,
 };
 
 export default async function ProjectDemoPage({
